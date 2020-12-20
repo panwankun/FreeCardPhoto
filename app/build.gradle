@@ -1,0 +1,58 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.alipay.portal'
+
+android {
+    compileSdkVersion 26
+
+    defaultConfig {
+        applicationId "com.panda.free.card"
+        minSdkVersion 18
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0.0.0"
+    }
+    signingConfigs {
+        release {
+            keyAlias 'freecard'
+            keyPassword '1qaz123456'
+            storeFile file('../tools/alias.jks')
+            storePassword '1qaz123456'
+        }
+        debug {
+            keyAlias 'freecard'
+            keyPassword '1qaz123456'
+            storeFile file('../tools/alias.jks')
+            storePassword '1qaz123456'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+
+}
+
+
+portal {
+    allSlinks true
+    mergeAssets true
+}
+
+dependencies {
+
+    manifest "com.panda.free.card:freecardphoto-build:1.0.0:AndroidManifest@xml"
+    bundle "com.panda.free.card:freecardphoto-build:1.0.0:raw@jar"
+}
+
+apply plugin: 'com.alipay.apollo.baseline.update'
+mpaascomponents {
+// when you want exclude mpaas dependencies ,you can add dependency ga to to excludeDependencies
+// or set removed = true in mpaaspakcages.json
+    excludeDependencies = []
+}
